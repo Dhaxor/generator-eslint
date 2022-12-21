@@ -49,8 +49,13 @@ export default class extends Generator {
             default: false
         }];
 
-        this.answers = await this.prompt(prompts);
-        this.answers.pluginId = this.answers.pluginId.replace("eslint-plugin-", "");
+        try {
+            this.answers = await this.prompt(prompts);
+            this.answers.pluginId = this.answers.pluginId.replace("eslint-plugin-", "");
+        } catch (error) {
+            console.error("Invalid Input. Exiting generator.");
+            process.exit(1);
+        }
     }
 
     writing() {
